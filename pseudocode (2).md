@@ -1,11 +1,20 @@
 # Where do I begin? What am I doing?
 
 No idea, so ask lots of questions.
-
+## Rubric
 Create an interactive shell script with the help of python that helps superheroes stay in touch with their friends and keep track of supervillains through the terminal.
 For this project, we will be using Python 3 and PostgreSQL and the PyPi package psycopg3.
 
 I don't have docker and cannot install it due to hardware and software constraints
+
+## CRUD Operations
+-Create a hero with abilities and a backstory
+
+- Read all or one of the heroes in the database
+
+- Update data within the database
+
+- Delete heroes within the database.
 
 # Procedural
 ### user stories
@@ -37,32 +46,44 @@ Who are the superheroes? where will the data be drawn from?
 
 # Flowchart 
 ```
-                      +-------------------------------+
-                      |       Begin: Connect DB       |
-                      +-------------------------------+
-                                  |
-                                  v
-                      +-------------------------------+
-                      | Initialize: Create Table     |
-                      +-------------------------------+
-                                  |
-                                  v
-                      +-------------------------------+
-                      |         Render: Shell         |
-                      |                               |
-                      |  +-------------------------+  |
-                      |  | Display Options         |  |
-                      |  +-------------------------+  |
-                      |             |                 |
-                      |             v                 |
-                      |  +-------------------------+  |
-                      |  | User Input and Action   |  |
-                      |  +-------------------------+  |
-                      |             |                 |
-                      v             v                 |
-          +------------------+   +------------------+  |
-          | Update Database |   | Show Data         |  |
-          +------------------+   +------------------+
+ +-------------------------------+
+|       Begin: Connect DB       |
++-------------------------------+
+            |
+            v
++-------------------------------+
+| Initialize: Create Table     |
++-------------------------------+
+            |
+            v
++-------------------------------+
+|         Render: Shell         |
+|                               |
+|  +-------------------------+  |
+|  | Display Options         |  |
+|  +-------------------------+  |
+|            | (User Input)       |
+|            v                 |
+|  +-------------------------+  |
+|  | User Input and Action   |  |
+|  +-------------------------+  |
+|            |                 |
+v            v
++------------------+
+|   Create Hero/Villain  |
++------------------+
+| Read All Heroes/Villains |
++------------------+
+| Update Hero/Villain Type |
++------------------+
+| Delete Hero/Villain  |
++------------------+
+|                  |
+v                  v
++------------------+
+|   Exit          |
++------------------+
+
 ```
 
 # Functional 
