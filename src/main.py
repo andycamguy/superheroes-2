@@ -1,5 +1,6 @@
 from psycopg import connect, OperationalError
-
+from connection import create_connection, execute_query
+from functions import get_all_heroes
 if __name__ == "__main__":
     all_heroes = get_all_heroes()
 

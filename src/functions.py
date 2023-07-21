@@ -1,3 +1,4 @@
+from connection import execute_query, create_connection
 def get_all_heroes():
     query = """
         SELECT * FROM heroes;
