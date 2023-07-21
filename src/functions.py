@@ -1,5 +1,3 @@
-
-
 from connection import execute_query
 
 def get_all_heroes():
@@ -9,12 +7,12 @@ def get_all_heroes():
     returned_items = execute_query(query).fetchall()
     return returned_items
 
-def add_hero(name, about_me, biography, image_url=None):
+def add_hero(name, about_me, biography):
     query = """
-        INSERT INTO heroes (name, about_me, biography, image_url)
-        VALUES (%s, %s, %s, %s)
+        INSERT INTO heroes (name, about_me, biography)
+        VALUES (%s, %s, %s)
     """
-    params = (name, about_me, biography, image_url)
+    params = (name, about_me, biography)
     execute_query(query, params)
 
 def update_hero_biography(hero_id, new_biography):
@@ -25,7 +23,7 @@ def update_hero_biography(hero_id, new_biography):
     """
     params = (new_biography, hero_id)
     execute_query(query, params)
-    
+
 def delete_hero_by_name(hero_name):
     query = """
         DELETE FROM heroes

@@ -1,7 +1,5 @@
-from functions import get_all_heroes, add_hero, update_hero_biography, delete_hero_by_name
-
+from functions import get_all_heroes, add_hero, update_hero_biography, delete_hero_by_name 
 from connection import execute_query
-
 def print_heroes(heroes):
     for hero in heroes:
         hero_id, name, about_me, biography, _ = hero
@@ -12,14 +10,6 @@ def add_new_hero():
     about_me = input("Enter a short description (about me): ")
     biography = input("Enter the hero's biography: ")
 
-    # Add abilities
-    abilities = []
-    while True:
-        ability = input("Enter an ability (or type 'done' to finish): ")
-        if ability.lower() == 'done':
-            break
-        abilities.append(ability)
-
     # Add hero to the database
     add_hero(name, about_me, biography)
 
@@ -28,16 +18,38 @@ def add_new_hero():
     hero_id = all_heroes[-1][0]
 
     # Add hero's abilities to the database
+    abilities = []
+    while True:
+        ability = input("Enter an ability (or type 'done' to finish): ")
+        if ability.lower() == 'done':
+            break
+        abilities.append(ability)
+
+    # Add hero's abilities to the database
     for ability in abilities:
         add_ability(hero_id, ability)
 
 def add_ability(hero_id, ability):
+    # Check if the ability is valid and get its ID from the ability_types table
     query = """
-        INSERT INTO abilities (hero_id, ability_type_id)
-        VALUES (%s, (SELECT id FROM ability_types WHERE name = %s))
+        SELECT id FROM ability_types WHERE name = %s;
     """
-    params = (hero_id, ability)
-    execute_query(query, params)
+    params = (ability,)
+    result = execute_query(query, params).fetchone()
+
+    if result:
+        ability_id = result[0]
+
+        # Insert the ability with the correct ability_type_id
+        query = """
+            INSERT INTO abilities (hero_id, ability_type_id)
+            VALUES (%s, %s)
+        """
+        params = (hero_id, ability_id)
+        execute_query(query, params)
+
+    else:
+        print(f"Ability '{ability}' not found in the database. Skipping...")
 
 def update_hero_relationship():
     all_heroes = get_all_heroes()
@@ -104,10 +116,10 @@ if __name__ == "__main__":
             view_hero()
 
         elif choice == '3':
-            add_hero()
+            add_new_hero()
 
         elif choice == '4':
-            update_hero_biography()
+            update_hero_relationship()
 
         elif choice == '5':
             delete_hero()
